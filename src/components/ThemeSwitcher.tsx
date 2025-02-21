@@ -9,7 +9,7 @@ export default function ThemeSwitcher() {
   };
 
   return (
-    <div className="flex items-center space-x-2">
+    <div className="flex items-center gap-4 p-2 rounded">
       <FaSun className="text-yellow-500 w-5 h-5" />
       <button
         onClick={toggleTheme}
@@ -23,7 +23,7 @@ export default function ThemeSwitcher() {
           }`}
         ></div>
       </button>
-      <FaMoon className="text-gray-700 dark:text-gray-300 w-5 h-5" />
+      <FaMoon className="text-gray-700 dark:text-gray-400 w-5 h-5" />
     </div>
   );
 }

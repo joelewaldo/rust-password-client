@@ -17,7 +17,6 @@ interface ThemeProviderProps {
   children: ReactNode;
 }
 
-// Create ThemeProvider component
 export const ThemeProvider = ({ children }: ThemeProviderProps) => {
   const [theme, setTheme] = useState<string>("light");
 

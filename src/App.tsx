@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { invoke } from "@tauri-apps/api/core";
-import ThemeSwitcher from "./components/ThemeSwitcher";
+import Sidebar from "./components/Sidebar";
 import "./App.css";
 
 function App() {
@@ -11,18 +11,18 @@ function App() {
   }
 
   return (
-    <div className="flex">
+    <div className="flex bg-gray-300 dark:bg-gray-900">
+      <Sidebar />
       <main
-        className={`flex flex-col items-center justify-center flex-1 min-h-screen ml-64 transition-all duration-300 bg-white dark:bg-gray-900`}
+        className={`flex flex-col items-center justify-center flex-1 min-h-screen ml-64 transition-all duration-300`}
       >
-        <div className="space-y-4 text-center">
-          <ThemeSwitcher />
-          <button
-            className="rounded-md bg-cyan-500 px-4 py-2 text-sm font-semibold text-white opacity-100 focus:outline-none"
-            onClick={generateKey}
-          >
-            Generate a key
-          </button>
+        <button
+          className="rounded-md bg-cyan-500 px-4 py-2 text-sm font-semibold text-white opacity-100 focus:outline-none"
+          onClick={generateKey}
+        >
+          Generate a key
+        </button>
+        <div className="text-center">
           <p>{key}</p>
         </div>
       </main>
