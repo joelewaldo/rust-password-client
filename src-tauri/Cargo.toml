@@ -24,4 +24,5 @@ serde = { version = "1", features = ["derive"] }
 serde_json = "1"
 aes-gcm = "0.10.3"
 hex = "0.4.3"
+tauri-plugin-store = { version = "2.2.0" }
 
