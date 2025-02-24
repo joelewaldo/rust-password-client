@@ -4,9 +4,11 @@ import ThemeSwitcher from "./ThemeSwitcher";
 import ThemeSwitcherMini from "./ThemeSwitcherMini";
 
 import { useAlert } from "../context/AlertContext";
+import { usePageManager } from "../context/PageManager";
 
 export default function Sidebar() {
-  const { addAlert } = useAlert()
+  const { addAlert } = useAlert();
+  const { switchPage } = usePageManager();
   const [isExpanded, setIsExpanded] = useState(false);
 
   return (
@@ -24,18 +26,24 @@ export default function Sidebar() {
             {isExpanded ? <ChevronLeft /> : <ChevronRight />}
           </button>
           <ul>
-            <li className="flex items-center gap-4 p-2 hover:bg-gray-700 rounded cursor-pointer">
+            <li
+              className="flex items-center gap-4 p-2 hover:bg-gray-700 rounded cursor-pointer"
+              onClick={() => switchPage("password")}
+            >
               <Lock />
               {isExpanded && <span>Passwords</span>}
             </li>
             <li
               className="flex items-center gap-4 p-2 hover:bg-gray-700 rounded cursor-pointer"
-              onClick={() => addAlert("New alert triggered!")}
+              onClick={() => switchPage("alert")}
             >
               <Bell />
               {isExpanded && <span>Alerts</span>}
             </li>
-            <li className="flex items-center gap-4 p-2 hover:bg-gray-700 rounded cursor-pointer">
+            <li
+              className="flex items-center gap-4 p-2 hover:bg-gray-700 rounded cursor-pointer"
+              onClick={() => switchPage("settings")}
+            >
               <Settings />
               {isExpanded && <span>Settings</span>}
             </li>
