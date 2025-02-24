@@ -1,52 +1,72 @@
-import { useState, createContext, useContext, useEffect, ReactNode } from "react";
+import {
+  useState,
+  createContext,
+  useContext,
+  ReactNode,
+  useEffect,
+} from "react";
 
-interface AlertContextType {
-  addAlert: (message: string) => void;
-}
-
-interface AlertProviderProps {
-  children: ReactNode;
-}
-
-interface AlertProps {
-  message: string;
-  onClose: () => void;
-}
-
-interface AlertMessage {
+type AlertType = {
   id: number;
   message: string;
-}
+  timestamp: string;
+};
 
-const AlertContext = createContext<AlertContextType | undefined>(undefined);
+type AlertContextType = {
+  alerts: AlertType[];
+  addAlert: (message: string) => void;
+};
 
-export const useAlert = () => {
-  const context = useContext(AlertContext);
-  if (context === undefined) {
-    throw new Error('useAlert must be used within an AlertProvider');
-  }
-  return context;
+const AlertContext = createContext<AlertContextType>({
+  alerts: [],
+  addAlert: () => {},
+});
+
+export const useAlert = () => useContext(AlertContext);
+
+type AlertProviderProps = {
+  children: ReactNode;
 };
 
 export const AlertProvider = ({ children }: AlertProviderProps) => {
-  const [alerts, setAlerts] = useState<AlertMessage[]>([]);
+  const [alerts, setAlerts] = useState<AlertType[]>([]);
+  const [visibleAlerts, setVisibleAlerts] = useState<number[]>([]);
 
   const addAlert = (message: string) => {
-    setAlerts((prevAlerts) => [...prevAlerts, { id: Date.now(), message }]);
+    const newAlert = {
+      id: Date.now(),
+      message,
+      timestamp: new Date().toLocaleString(),
+    };
+    setAlerts((prevAlerts) => [...prevAlerts, newAlert]);
+    setVisibleAlerts((prevVisible) => [...prevVisible, newAlert.id]);
   };
 
-  const removeAlert = (id: number) => {
-    setAlerts((prevAlerts) => prevAlerts.filter(alert => alert.id !== id));
+  const hideAlert = (id: number) => {
+    setVisibleAlerts((prevVisible) =>
+      prevVisible.filter((alertId) => alertId !== id)
+    );
   };
 
   return (
-    <AlertContext.Provider value={{ addAlert }}>
+    <AlertContext.Provider value={{ addAlert, alerts }}>
       {children}
-      {alerts.map((alert) => (
-        <Alert key={alert.id} message={alert.message} onClose={() => removeAlert(alert.id)} />
-      ))}
+      {alerts
+        .filter((alert) => visibleAlerts.includes(alert.id))
+        .map((alert) => (
+          <Alert
+            key={alert.id}
+            message={alert.message}
+            onClose={() => hideAlert(alert.id)}
+          />
+        ))}
     </AlertContext.Provider>
   );
+};
+
+type AlertProps = {
+  message: string;
+  onClose: () => void;
 };
 
 const Alert = ({ message, onClose }: AlertProps) => {
@@ -58,7 +78,9 @@ const Alert = ({ message, onClose }: AlertProps) => {
   return (
     <div className="fixed top-4 right-4 bg-red-500 text-white p-3 rounded shadow-lg">
       {message}
-      <button onClick={onClose} className="ml-2 text-white">×</button>
+      <button onClick={onClose} className="ml-2 text-white">
+        ×
+      </button>
     </div>
   );
 };

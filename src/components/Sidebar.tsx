@@ -3,7 +3,10 @@ import { Bell, Lock, Settings, ChevronLeft, ChevronRight } from "lucide-react";
 import ThemeSwitcher from "./ThemeSwitcher";
 import ThemeSwitcherMini from "./ThemeSwitcherMini";
 
+import { useAlert } from "../context/AlertContext";
+
 export default function Sidebar() {
+  const { addAlert } = useAlert()
   const [isExpanded, setIsExpanded] = useState(false);
 
   return (
@@ -25,7 +28,10 @@ export default function Sidebar() {
               <Lock />
               {isExpanded && <span>Passwords</span>}
             </li>
-            <li className="flex items-center gap-4 p-2 hover:bg-gray-700 rounded cursor-pointer">
+            <li
+              className="flex items-center gap-4 p-2 hover:bg-gray-700 rounded cursor-pointer"
+              onClick={() => addAlert("New alert triggered!")}
+            >
               <Bell />
               {isExpanded && <span>Alerts</span>}
             </li>

@@ -3,6 +3,7 @@ import { invoke } from "@tauri-apps/api/core";
 import Sidebar from "./components/Sidebar";
 import "./App.css";
 import SettingsPage from "./pages/Settings";
+import AlertPage from "./pages/Alert";
 
 function App() {
   const [key, setKey] = useState("");
@@ -26,7 +27,7 @@ function App() {
         <div className="text-center">
           <p>{key}</p>
         </div> */}
-        <SettingsPage />
+        <AlertPage />
       </main>
     </div>
   );
