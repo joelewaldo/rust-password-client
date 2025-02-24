@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Lock, Settings, ChevronLeft, ChevronRight } from "lucide-react";
+import { Bell, Lock, Settings, ChevronLeft, ChevronRight } from "lucide-react";
 import ThemeSwitcher from "./ThemeSwitcher";
 import ThemeSwitcherMini from "./ThemeSwitcherMini";
 
@@ -24,6 +24,10 @@ export default function Sidebar() {
             <li className="flex items-center gap-4 p-2 hover:bg-gray-700 rounded cursor-pointer">
               <Lock />
               {isExpanded && <span>Passwords</span>}
+            </li>
+            <li className="flex items-center gap-4 p-2 hover:bg-gray-700 rounded cursor-pointer">
+              <Bell />
+              {isExpanded && <span>Alerts</span>}
             </li>
             <li className="flex items-center gap-4 p-2 hover:bg-gray-700 rounded cursor-pointer">
               <Settings />
