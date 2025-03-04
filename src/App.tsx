@@ -4,11 +4,9 @@ import "./App.css";
 
 function App() {
   return (
-    <div className="flex bg-gray-300 dark:bg-gray-900">
+    <div className="flex bg-white dark:bg-gray-900 font-inter overflow-hidden">
       <Sidebar />
-      <main
-        className={`flex flex-col items-center justify-center flex-1 min-h-screenz transition-all duration-300`}
-      >
+      <main className={`flex-1 min-h-screenz transition-all duration-300`}>
         <PageSwitcher />
       </main>
     </div>

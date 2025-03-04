@@ -28,7 +28,7 @@ export default function Sidebar() {
           <ul>
             <li
               className="flex items-center gap-4 p-2 hover:bg-gray-700 rounded cursor-pointer"
-              onClick={() => switchPage("password")}
+              onClick={() => switchPage("passwords")}
             >
               <Lock />
               {isExpanded && <span>Passwords</span>}
