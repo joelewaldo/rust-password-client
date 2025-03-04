@@ -16,7 +16,7 @@ export const usePasswordApi = <T,>(
     const fetchData = async () => {
       try {
         const api_base_url = new URL(await invoke<string>("get_db_url"));
-        const response = await axios.get<T>(`${api_base_url}api/${route}`, options);
+        const response = await axios<T>(`${api_base_url}api/${route}`, options);
         setData(response.data);
       } catch (err) {
         setError((err as Error).message);
